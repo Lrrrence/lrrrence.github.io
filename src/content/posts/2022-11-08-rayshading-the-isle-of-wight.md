@@ -119,4 +119,4 @@ Below you can find the R code I used to generate the map. The "raster.tif" is th
       #save_png("IOW1965_map.png")
       plot_map()
 
-![](/assets/img/wp-uploads/2022/11/IOW1965A1aspect.png)The Isle of Wight - Rayshaded
+![](/assets/img/wp-uploads/2022/11/IOW1965A1aspect.jpg)The Isle of Wight - Rayshaded
