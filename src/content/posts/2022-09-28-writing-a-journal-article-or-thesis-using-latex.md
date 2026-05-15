@@ -22,66 +22,68 @@ I also suggest [setting up a Github repository](<https://code.visualstudio.com/d
 Although the installation guide linked above provides a selection of recipes for your settings.json file, you might find that you need additional options. The most common of which is likely to be switching between the two most common backends for handling referencing, `bibtex` (older, faster, for use with `bibtex` and `natbib`) and `biber` (newer, slower, for use with `biblatex`). Most of the time you'll want to use `[latexmk](<https://ctan.org/pkg/latexmk/>)` to handle compilation, but I have recipes for `pdflatex`, `xelatex`, and `lualatex`, just in case. See an explanation of the differences between these [here](<https://tex.stackexchange.com/a/13601/267108>). 
     
     
-        "latex-workshop.latex.recipes":  
-            }, 
-            {
-                "name": "pdflatex",
-                "tools": 
-            }, 
-            {
-                "name": "pdflatex -> biber -> pdflatex*2",
-                "tools": 
-            },      
-            {
-                "name": "pdflatex -> bibtex -> pdflatex*2",
-                "tools": 
-            }, 
-            {
-                "name": "xelatex",
-                "tools": 
-            }, 
-            {
-                "name": "lualatex",
-                "tools": 
-            },
-            {
-                "name": "xelatex->biber->xelatex",
-                "tools": 
-            }, 
-            {
-                "name": "lualatex->biber->lualatex",
-                "tools": 
-            },
-        ],
-        "latex-workshop.latex.tools": , 
-                "env": {} 
-                }, 
-            {
-                "name": "pdflatex",
-                "command": "pdflatex",
-                "args": 
-            },
-            {
-                "name": "bibtex",
-                "command": "bibtex",
-                "args": 
-            },
-            {
-                "name": "biber",
-                "command": "biber",
-                "args": 
-            },
-            {
-                "name": "xelatex",
-                "command": "xelatex",
-                "args": 
-            },
-            {
-                "name": "lualatex",
-                "command": "lualatex",
-                "args": 
-            },   
-        ],
+```json
+"latex-workshop.latex.recipes":  
+    }, 
+    {
+        "name": "pdflatex",
+        "tools": 
+    }, 
+    {
+        "name": "pdflatex -> biber -> pdflatex*2",
+        "tools": 
+    },      
+    {
+        "name": "pdflatex -> bibtex -> pdflatex*2",
+        "tools": 
+    }, 
+    {
+        "name": "xelatex",
+        "tools": 
+    }, 
+    {
+        "name": "lualatex",
+        "tools": 
+    },
+    {
+        "name": "xelatex->biber->xelatex",
+        "tools": 
+    }, 
+    {
+        "name": "lualatex->biber->lualatex",
+        "tools": 
+    },
+],
+"latex-workshop.latex.tools": , 
+        "env": {} 
+        }, 
+    {
+        "name": "pdflatex",
+        "command": "pdflatex",
+        "args": 
+    },
+    {
+        "name": "bibtex",
+        "command": "bibtex",
+        "args": 
+    },
+    {
+        "name": "biber",
+        "command": "biber",
+        "args": 
+    },
+    {
+        "name": "xelatex",
+        "command": "xelatex",
+        "args": 
+    },
+    {
+        "name": "lualatex",
+        "command": "lualatex",
+        "args": 
+    },   
+],
+```
 
 ![](/assets/img/wp-uploads/2022/10/yyHRjlCKKE.png)LaTeX commands in VS Code
 
@@ -141,23 +143,25 @@ For a thesis that's likely to cover multiple chapters and topics it makes sense 
 Before you get into the bulk of the document you'll want to have your title page, abstract, contents, list of figures/tables, and definitions/abbreviations. You will need to set up two different page styles (using the `fancyhdr` package), one without headers/footers (plain) and one with (fancy):
     
     
-    %set main page style
-    \fancypagestyle{fancy}{
-      \fancyhf{}
-      \fancyhead{\textrm\thepage}
-      \fancyhead{\nouppercase{\textit{\rightmark}}}
-      \fancyhead{\nouppercase{\textit{\leftmark}}}
-      \fancyhead{\textrm\thepage}
-      \chead{}\lfoot{}\rfoot{}\cfoot{}
-      \renewcommand{\headrulewidth}{0.5pt}
-    }
-    %define simple page style with page number only
-    \fancypagestyle{plain}{
-      \fancyhf{}
-      \fancyhead{\thepage}
-      \fancyhead{\thepage}
-      \renewcommand{\headrulewidth}{0pt}
-    }
+```latex
+%set main page style
+\fancypagestyle{fancy}{
+  \fancyhf{}
+  \fancyhead{\textrm\thepage}
+  \fancyhead{\nouppercase{\textit{\rightmark}}}
+  \fancyhead{\nouppercase{\textit{\leftmark}}}
+  \fancyhead{\textrm\thepage}
+  \chead{}\lfoot{}\rfoot{}\cfoot{}
+  \renewcommand{\headrulewidth}{0.5pt}
+}
+%define simple page style with page number only
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead{\thepage}
+  \fancyhead{\thepage}
+  \renewcommand{\headrulewidth}{0pt}
+}
+```
 
 You can switch page style using the `\pagestyle{plain}` command. You'll also want to control page numbering between roman and arabic, which you can do with the `\pagenumbering{roman}` command.
 
@@ -166,36 +170,42 @@ If you are using a two-sided style then you need to ensure that every chapter st
 You might find that LaTeX really likes to hyphenate words when it doesn't need to. Try a combination of these commands to surpress it:
     
     
-    \pretolerance=5000
-    \tolerance=9000
-    \emergencystretch=0pt
-    \hyphenpenalty=10000
-    \exhyphenpenalty=100
-    \righthyphenmin=4
-    \lefthyphenmin=4
-    \doublehyphendemerits=10000       % No consecutive line hyphens.
-    \brokenpenalty=10000              % No broken words across columns/pages.
-    \widowpenalty=9999                % Almost no widows at bottom of page.
-    \clubpenalty=9999                 % Almost no orphans at top of page.
-    \interfootnotelinepenalty=9999    % Almost never break footnotes.
+```latex
+\pretolerance=5000
+\tolerance=9000
+\emergencystretch=0pt
+\hyphenpenalty=10000
+\exhyphenpenalty=100
+\righthyphenmin=4
+\lefthyphenmin=4
+\doublehyphendemerits=10000       % No consecutive line hyphens.
+\brokenpenalty=10000              % No broken words across columns/pages.
+\widowpenalty=9999                % Almost no widows at bottom of page.
+\clubpenalty=9999                 % Almost no orphans at top of page.
+\interfootnotelinepenalty=9999    % Almost never break footnotes.
+```
 
 ##### Referencing
 
 There are a few different bibliography systems available in LaTeX, and the intricacies of them can make things very confusing. For a detailed explanation of the differences between packages, see [this stack exchange post](<https://tex.stackexchange.com/questions/25701/bibtex-vs-biber-and-biblatex-vs-natbib>). The two most common systems are `bibtex` and `biblatex`. `Biblatex` is the more modern one, and what I suggest you use for a thesis, but unfortunately it isn't always accepted by journals because they have their own `bibtex` style. This isn't really an issue as they both read .bib files in the same way, and they both use the same `\cite{}` command, but it's something to be aware of. For `biblatex` you use:
     
     
-    \usepackage{biblatex}
-    \addbibresource{refs.bib}
-    %%%%%%%%%%%%%%%%%%%%%%%%%
-    \printbibliography
+```latex
+\usepackage{biblatex}
+\addbibresource{refs.bib}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\printbibliography
+```
     
 
 And for `bibtex` you use:
     
     
-    \bibliographystyle{your_style_here}
-    %%%%%%%%%%%%%%%%%%%%%%%%%%
-    \bibliography{refs}
+```latex
+\bibliographystyle{your_style_here}
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliography{refs}
+```
 
 A great list of different styles is available [here](<http://debibify.dorian-depriester.fr>). It's also a good idea to use the [notoccite package](<https://ctan.org/pkg/notoccite> "notoccite package") which fixes the ordering of citations if they're used in section titles or captions. 
 
@@ -208,27 +218,31 @@ For a lot of people (me included) one of the draws of LaTeX is the typeface. Com
 This is a slight tangent from the writing of the document, but you'll want to pay special attention to figures, only using vector format graphics where possible. LaTeX likes to work with .eps files, which you can export to with MATLAB, R, Python, etc. You can then tweak these figures in Adobe Illustrator/Inkscape, or annotate a photo for example, and save to an .eps. In my case I went through multiple iterations of figure style, changing colour palettes, line thicknesses, font sizes, etc. before I was happy, which was only possible because I worked with .eps files from the start. I created the large majority of my figures with MATLAB, where the `export_fig` package came in very useful. Here's some code to control the axes colours, line width, plot size, font, and output format of your figures: 
     
     
-    set(groot,{'DefaultAxesXColor','DefaultAxesYColor','DefaultAxesZColor'},{'k','k','k'})
-    set(gca,'LineWidth',1.2)
-    
-    x0=10;
-    y0=10;
-    width=1200;
-    height=1000;
-    set(gcf,'position',)
-    set(gca,'fontname','Libertinus Sans','fontsize', 20)
-    set(gcf, 'Color', 'w');
-    
-    export_fig figure.eps -painters -nocrop
+```latex
+set(groot,{'DefaultAxesXColor','DefaultAxesYColor','DefaultAxesZColor'},{'k','k','k'})
+set(gca,'LineWidth',1.2)
+
+x0=10;
+y0=10;
+width=1200;
+height=1000;
+set(gcf,'position',)
+set(gca,'fontname','Libertinus Sans','fontsize', 20)
+set(gcf, 'Color', 'w');
+
+export_fig figure.eps -painters -nocrop
+```
 
 To include a figure in your document use the following code:
     
     
-    \begin{figure}
-        \centering
-        \includegraphics{./figures/figure.eps}
-        \caption{This is the caption}\label{fig:x}
-    \end{figure}
+```latex
+\begin{figure}
+    \centering
+    \includegraphics{./figures/figure.eps}
+    \caption{This is the caption}\label{fig:x}
+\end{figure}
+```
 
 Notice that there are two inputs to the `\caption` command, the first one `[]` controls what will appear in your list of figures, while the second `{}` controls what appears as the caption. This is useful if you don't want a citation or a copyright declaration to appear in your list of figures.
 
@@ -239,40 +253,46 @@ You may find that a figure ends up somewhere you're not expecting it to be, whic
 I suggest using an [online LaTeX table generator](<https://www.tablesgenerator.com/>) (in booktabs style) to generate the code for a table from Excel data. This allows you to play around with the look and layout of the table before you try including it in your document. If you have particularly wide tables you can shrink them down to fit within the margins by placing the `tabular` environment within an `adjustbox` environment:
     
     
-    \begin{table}
-        \centering
-        \begin{adjustbox}{width=1\textwidth,center=\textwidth}
-        \begin{tabular}{ll}
-            \toprule
-            \textbf{Heading 1} & \textbf{Heading 2}  
-            \midrule
-            \bottomrule
-        \end{tabular}
-    \end{adjustbox}
-    \caption{}\label{table:table1}
-    \end{table}
+```latex
+\begin{table}
+    \centering
+    \begin{adjustbox}{width=1\textwidth,center=\textwidth}
+    \begin{tabular}{ll}
+        \toprule
+        \textbf{Heading 1} & \textbf{Heading 2}  
+        \midrule
+        \bottomrule
+    \end{tabular}
+\end{adjustbox}
+\caption{}\label{table:table1}
+\end{table}
+```
 
 ##### equations
 
 I like to include the units for my equations right-aligned within the equation environment. You can do this by including the follow in your preamble:
     
     
-    \makeatletter
-    \providecommand\add@text{}
-    \newcommand\tagaddtext{%
-      \gdef\add@text{#1\gdef\add@text{}}}% 
-    \renewcommand\tagform@{%
-      \maketag@@@{\llap{\add@text\quad}(\ignorespaces#1\unskip\@@italiccorr)}%
-    }
-    \makeatother
+```latex
+\makeatletter
+\providecommand\add@text{}
+\newcommand\tagaddtext{%
+  \gdef\add@text{#1\gdef\add@text{}}}% 
+\renewcommand\tagform@{%
+  \maketag@@@{\llap{\add@text\quad}(\ignorespaces#1\unskip\@@italiccorr)}%
+}
+\makeatother
+```
 
 Then in the text:
     
     
-    \begin{equation} \label{velocitycalc}
-        v = \frac{d}{t_F}
-        \tagaddtext{}
-    \end{equation} 
+```latex
+\begin{equation} \label{velocitycalc}
+    v = \frac{d}{t_F}
+    \tagaddtext{}
+\end{equation} 
+```
 
 ![](/assets/img/wp-uploads/2022/09/dX9mLED9B3.png)
 

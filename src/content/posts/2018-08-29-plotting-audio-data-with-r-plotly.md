@@ -37,15 +37,17 @@ From [here](<https://drive.google.com/open?id=1W0mR9rrN0bFNOUMG9e965t6YP-XSR5mR>
 First we need to load in a number of packages. To do this we will first create a function to check whether the packages are already installed and then install them if not:
     
     
-    check.packages <- function(pkg){
-      new.pkg <- pkg)]
-      if (length(new.pkg)) 
-        install.packages(new.pkg, dependencies = TRUE)
-      sapply(pkg, require, character.only = TRUE)
-    }
-    
-    packages<-c("devtools", "tuneR")
-    check.packages(packages)
+```r
+check.packages <- function(pkg){
+  new.pkg <- pkg)]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, dependencies = TRUE)
+  sapply(pkg, require, character.only = TRUE)
+}
+
+packages<-c("devtools", "tuneR")
+check.packages(packages)
+```
 
 Next we will use one of our newly installed packages (devtools) to install the latest development version of plotly: 
     
@@ -55,8 +57,10 @@ Next we will use one of our newly installed packages (devtools) to install the l
 Now we need to make sure that the plotly package and the tuneR package are loaded each time we run the script: 
     
     
-    library(plotly)
-    library(tuneR)
+```r
+library(plotly)
+library(tuneR)
+```
 
 You may be prompted to install a number of other packages depending on your system, and the installation may take a few minutes (watch the console!). The installation will take place when you first run a script, but first we need to setup the image export function.
 
@@ -65,7 +69,9 @@ You may be prompted to install a number of other packages depending on your syst
 In order to export our completed plot we need to use Plotly's Orca (Open-source Report Creator App) package. Download the relevant installer from [here](<https://github.com/plotly/orca>). You will need to add this to your PATH so that it can be called on from R. To do this right-click on the desktop shortcut for Orca and open the properties. Copy the "Start-in" file location. Now go to Control Panel>System and Security>System>Advanced System Settings and under the "Advanced" tab click "Environment Variables...". Under "System Variables" find "Path" and click "Edit...", now paste the Orca location into a new line and hit "OK". To check that this is working correctly open up a cmd prompt and type "orca". You should see the available commands for the Orca service.  You're now ready to export a file. Go back to R and add the following line to the end of your project: 
     
     
-    orca(p, "plot.png",scale=2)
+```r
+orca(p, "plot.png",scale=2)
+```
 
 This will export your plot to the working directory (default is My Documents) as a PNG file at double the resolution set earlier. To see all of the available commands for orca open a cmd prompt and type "orca graph --help". You can export as PNG, JPEG, webp, svg, pdf, or eps. Now that we're setup with all of the necessary packages we can import some data and run a script.
 
@@ -82,102 +88,112 @@ End with p to show your plot within RStudio's viewer, comment out (#) the use of
 ![rt60.png](/assets/img/wp-uploads/2018/08/rt60-e1534951679813.png) In this example we will create a plot for 1/3 octave band data, showing one trace with error bars. Our text file is constructed with frequency information in the first column (100, 125, 160, etc.), measurement data (mean RT60) in the second column, and standard deviation in the third column. We are going to use a dialog box to select our data file, to do this use: 
     
     
-    myFile <- file.choose()
-    myData <- read.table(myFile,header=TRUE)
+```r
+myFile <- file.choose()
+myData <- read.table(myFile,header=TRUE)
+```
 
 This is going to insert our data into a data frame called "mydata". Now we are ready to start using Plotly functions to create our plot. First we need to create a plot using plot_ly and define the size. Next we need to define our traces and start adding them to the plot. This means selecting the type (line, bar, pie, etc.), shape (straight/curved lines), colour, width, symbol type, etc. There are many different options here, most of which are documented [here](<https://plot.ly/r/>).
 
 #### **EXAMPLE CODE:**
     
     
-    p <- plot_ly(x = mydata],width=1450,height=900)%>%
-    add_trace(
-      y = mydata], 
-      error_y = list(
-        array = c(mydata]),
-        color = "rgb(10, 10, 10)", 
-        thickness = 2.5, 
-        width = 8.5
-        ),
-      line = list( 
-        color = "rgb(0, 0, 0)", 
-        shape = "spline", 
-        width = 4
-      ), 
-      mode = "lines", 
-      name = "Closed", 
-      type = "scatter"
-    
-    )%>%
+```r
+p <- plot_ly(x = mydata],width=1450,height=900)%>%
+add_trace(
+  y = mydata], 
+  error_y = list(
+    array = c(mydata]),
+    color = "rgb(10, 10, 10)", 
+    thickness = 2.5, 
+    width = 8.5
+    ),
+  line = list( 
+    color = "rgb(0, 0, 0)", 
+    shape = "spline", 
+    width = 4
+  ), 
+  mode = "lines", 
+  name = "Closed", 
+  type = "scatter"
+
+)%>%
+```
 
 In this example trace 1 is made up of plotting column 1 against column 2, which can be chosen using:  x = mydata],  y = mydata], Extra traces can easily be added using the add_trace function. Error bars are added using error_y. Now we need to define the plot itself, font sizes, colours, axis limits, titles, legends, etc.:
     
     
-    layout(
-      autosize = FALSE, 
-      font = list(size = 20, color="rgb(0, 0, 0)"), 
-      hovermode = "closest", 
-      legend = list(
-        x = 0.18, 
-        y = 0.819, 
-        borderwidth = 1, 
-        traceorder = "normal"
-      ), 
-      margin = list(
-        t = 100, 
-        pad = 0
-      ), 
-      paper_bgcolor = "rgba(0, 0, 0, 0)",
-      plot_bgcolor = "rgba(0, 0, 0, 0)", 
-      showlegend = FALSE, 
-      xaxis = list(
-        autorange = FALSE, 
-        gridcolor = "rgba(127, 127, 127, 0.5)",
-        gridwidth = 1,
-        mirror = TRUE, 
-        range = c(0.3, 4.3), 
-        showline = TRUE, 
-        side = "bottom", 
-        title = "Frequency (Hz)", 
-        type = "log"
-      ), 
-      yaxis = list(
-        autorange = FALSE, 
-        gridcolor = "rgba(127, 127, 127,0.5)",
-        gridwidth = 1,
-        mirror = TRUE, 
-        nticks = 13, 
-        range = c(0, 2), 
-        showline = TRUE, 
-        side = "left", 
-        ticks = "inside", 
-        title = "RT60 (s)", 
-        type = "linear"
-      )
-    )
+```r
+layout(
+  autosize = FALSE, 
+  font = list(size = 20, color="rgb(0, 0, 0)"), 
+  hovermode = "closest", 
+  legend = list(
+    x = 0.18, 
+    y = 0.819, 
+    borderwidth = 1, 
+    traceorder = "normal"
+  ), 
+  margin = list(
+    t = 100, 
+    pad = 0
+  ), 
+  paper_bgcolor = "rgba(0, 0, 0, 0)",
+  plot_bgcolor = "rgba(0, 0, 0, 0)", 
+  showlegend = FALSE, 
+  xaxis = list(
+    autorange = FALSE, 
+    gridcolor = "rgba(127, 127, 127, 0.5)",
+    gridwidth = 1,
+    mirror = TRUE, 
+    range = c(0.3, 4.3), 
+    showline = TRUE, 
+    side = "bottom", 
+    title = "Frequency (Hz)", 
+    type = "log"
+  ), 
+  yaxis = list(
+    autorange = FALSE, 
+    gridcolor = "rgba(127, 127, 127,0.5)",
+    gridwidth = 1,
+    mirror = TRUE, 
+    nticks = 13, 
+    range = c(0, 2), 
+    showline = TRUE, 
+    side = "left", 
+    ticks = "inside", 
+    title = "RT60 (s)", 
+    type = "linear"
+  )
+)
+```
 
 For grid and background colours use rgba to control the transparency of your plots.  When showing more than one trace it may be useful to show a legend, as well as different markers for each trace. The example below shows insertion loss for a window that is either open or closed: ![third-otc-band.png](/assets/img/wp-uploads/2018/08/third-otc-band-e1534952621318.png) The legend is added under layout using:
     
     
-    legend = list(
-          x = 0.18, 
-          y = 0.819, 
-          borderwidth = 1, 
-          traceorder = "normal"
+```r
+legend = list(
+      x = 0.18, 
+      y = 0.819, 
+      borderwidth = 1, 
+      traceorder = "normal"
+```
 
 Markers can be added under add_trace using:
     
     
-      marker = list(
-        color = "rgb(0, 0, 0)", 
-        line = list(
-          color = "rgb(0, 0, 0)", 
-          width = 0
-        ), 
-        size = 22, 
-        symbol = "cross"
-      ), 
-      mode = "lines+markers",
+```r
+marker = list(
+  color = "rgb(0, 0, 0)", 
+  line = list(
+    color = "rgb(0, 0, 0)", 
+    width = 0
+  ), 
+  size = 22, 
+  symbol = "cross"
+), 
+mode = "lines+markers",
+```
 
 You should now have everything you need to create and export a plot. See the list of plot types at the start of this guide if you want to try creating other plots.
 

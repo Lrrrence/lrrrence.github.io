@@ -47,38 +47,40 @@ There are a huge number of sources for this, if you're considering a small area 
 You'll need to install the packages `ggplot2`, `ggridges`, and `dplyr` for this. Play around with the `scale` value to exaggerate the elevation. Set the `rel_min_height` based on the height of your water level, so that only the land is drawn.
     
     
-    library(ggplot2)
-    library(ggridges)
-    library(dplyr)
-    
-    transects <- read.csv("data.csv")
-    
-    head(transects)
-    
-    names(transects)<-"ID"
-    names(transects)<-"Elevation"
-    names(transects)<-"Lon"
-    names(transects)<-"Lat"
-    
-    joy <- ggplot(transects,
-                  aes(x = Lon, y = Lat, group =Lat, height = Elevation))+
-      geom_density_ridges(stat = "identity",
-                          scale = 25,
-                          fill = "black",
-                          color = "white",
-                          rel_min_height = 0.005)+
-      theme(panel.grid.major = element_blank(),
-            panel.grid.minor = element_blank(),
-            panel.background = element_rect(fill="black"),
-            axis.line = element_blank(),
-            axis.text.x = element_blank(),
-            plot.background = element_rect("black"),
-            axis.title.x = element_blank(),
-            axis.text.y = element_blank(),
-            axis.title.y = element_blank())
-    joy
-    
-    ggsave("joy_iow.pdf", width = 1920, height = 1080, units = "px")
+```r
+library(ggplot2)
+library(ggridges)
+library(dplyr)
+
+transects <- read.csv("data.csv")
+
+head(transects)
+
+names(transects)<-"ID"
+names(transects)<-"Elevation"
+names(transects)<-"Lon"
+names(transects)<-"Lat"
+
+joy <- ggplot(transects,
+              aes(x = Lon, y = Lat, group =Lat, height = Elevation))+
+  geom_density_ridges(stat = "identity",
+                      scale = 25,
+                      fill = "black",
+                      color = "white",
+                      rel_min_height = 0.005)+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        panel.background = element_rect(fill="black"),
+        axis.line = element_blank(),
+        axis.text.x = element_blank(),
+        plot.background = element_rect("black"),
+        axis.title.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.title.y = element_blank())
+joy
+
+ggsave("joy_iow.pdf", width = 1920, height = 1080, units = "px")
+```
     
 
 ##### Final touches

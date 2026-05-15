@@ -33,90 +33,92 @@ For getting started I suggest checking out [this great guide by Will Bishop](<ht
 Below you can find the R code I used to generate the map. The "raster.tif" is the vintage map to be overlayed, while "elevation_data.tif" is (obviously) the elevation data. The coordinates for cropping the elevation data can be found by mousing over the four corners of the map in QGIS. Adjust the numeric value of `resize_matrix` to reduce the size of the matrix while you're tinkering with it.
     
     
-    library(sp)
-    library(raster)
-    library(scales)
-    library(sf)
-    library(ggplot2)
-    library(dplyr)
-    library(imager)
-    #load satellite data
-    iow_1965r = raster::raster("raster.tif", band = 1)
-    iow_1965g = raster::raster("raster.tif", band = 2)
-    iow_1965b = raster::raster("raster.tif", band = 3)
-    #stack RGB layers
-    RGB_stack <- stack(iow_1965r,iow_1965g,iow_1965b)
-    raster::plotRGB(RGB_stack)
-    #show RGB CRS
-    crs(iow_1965r)
-    extent(RGB_stack)
-    dim(RGB_stack)
-    #load elevation data
-    iow_elevation = raster::raster("elevation_data.tif")
-    crs(iow_elevation)
-    plot(iow_elevation)
-    ## crop elevation to the full map extent (past neatline)
-    elevation_fullcrop <- raster::crop(iow_elevation, extent(iow_1965r))
-    plot(elevation_fullcrop)
-    dim(elevation_fullcrop)
-    ##this raster will help knockdown the elevation outside the
-    ## neatline in the physical map
-    base_raster <- elevation_fullcrop * 0 - 200
-    plot(base_raster)
-    #coordinates for cropping TL-TR-BR-BL
-    x <- c(428417.735, 466743.112, 466844.374, 428247.855)
-    y <- c(100111.466, 100026.692, 74368.682, 74378.837)
-    xy <- cbind(x,y)
-    S <- SpatialPoints(xy)
-    #convert from points to spatial point data frame
-    xy2 = as.data.frame(cbind(x,y))
-    spdf <- SpatialPointsDataFrame(S, xy2)
-    (Sr1 = Polygon(spdf))
-    (Srs1 = Polygons(list(Sr1), "s1"))
-    (SpP = SpatialPolygons(list(Srs1), 1:1))
-    #plot(SpP, col = 3:3, pbg="white", add=T)
-    SpP ### can not write as shapefile
-    ### Convert the SpatialPolygons to SpatialPolygonsDataFrame
-    shape_pol <- SpatialPolygonsDataFrame(SpP, match.ID=F, data= data.frame(x=spdf, y=spdf))
-    shape_pol ### can be writen as shapefile
-    #plot(shape_pol, col = 4, add=T)
-    #make mask and discard remaining data
-    mask =mask(elevation_fullcrop,shape_pol)
-    mask =trim(mask, values = NA)
-    extent(mask)
-    plot(mask)
-    #merge base with crop
-    elevation <- merge(mask, base_raster)
-    plot(elevation)
-    extent(elevation)
-    res(elevation)
-    #raster to matrix for RGB
-    iow_1965_matrix_r = rayshader::raster_to_matrix(iow_1965r)
-    iow_1965_matrix_g = rayshader::raster_to_matrix(iow_1965g)
-    iow_1965_matrix_b = rayshader::raster_to_matrix(iow_1965b)
-    #build array fro matrix
-    iow_rgb_array = array(0,dim=c(nrow(iow_1965_matrix_r),ncol(iow_1965_matrix_r),3))
-    #convert each layer
-    iow_rgb_array = iow_1965_matrix_r/255 #Red layer
-    iow_rgb_array = iow_1965_matrix_g/255 #Blue layer
-    iow_rgb_array = iow_1965_matrix_b/255 #Green layer
-    #transpose array
-    iow_rgb_array = aperm(iow_rgb_array, c(2,1,3))
-    #elevation data to matrix
-    iow_elevation_matrix = rayshader::raster_to_matrix(elevation)
-    #resize to speed up render
-    elev_mat = resize_matrix(iow_elevation_matrix,0.5)
-    #rayshade
-    ray_shadow      <- ray_shade(elev_mat, sunaltitude = 40, zscale = 1, multicore = TRUE)
-    ambient_shadow  <- ambient_shade(elev_mat, zscale = 1, multicore = TRUE)
-    lamb_shadow     <- lamb_shade(elev_mat, zscale=50, sunaltitude = 40)
-    elev_mat %>%
-      sphere_shade() %>%
-      add_overlay(iow_rgb_array, rescale_original=TRUE) %>%
-      add_shadow(ray_shadow, max_darken = 0.3) %>%
-      add_shadow(ambient_shadow, max_darken = 0.3) %>%
-      add_shadow(lamb_shadow, max_darken = 0.4) %>%
-      #save_png("IOW1965_map.png")
-      plot_map()
+```r
+library(sp)
+library(raster)
+library(scales)
+library(sf)
+library(ggplot2)
+library(dplyr)
+library(imager)
+#load satellite data
+iow_1965r = raster::raster("raster.tif", band = 1)
+iow_1965g = raster::raster("raster.tif", band = 2)
+iow_1965b = raster::raster("raster.tif", band = 3)
+#stack RGB layers
+RGB_stack <- stack(iow_1965r,iow_1965g,iow_1965b)
+raster::plotRGB(RGB_stack)
+#show RGB CRS
+crs(iow_1965r)
+extent(RGB_stack)
+dim(RGB_stack)
+#load elevation data
+iow_elevation = raster::raster("elevation_data.tif")
+crs(iow_elevation)
+plot(iow_elevation)
+## crop elevation to the full map extent (past neatline)
+elevation_fullcrop <- raster::crop(iow_elevation, extent(iow_1965r))
+plot(elevation_fullcrop)
+dim(elevation_fullcrop)
+##this raster will help knockdown the elevation outside the
+## neatline in the physical map
+base_raster <- elevation_fullcrop * 0 - 200
+plot(base_raster)
+#coordinates for cropping TL-TR-BR-BL
+x <- c(428417.735, 466743.112, 466844.374, 428247.855)
+y <- c(100111.466, 100026.692, 74368.682, 74378.837)
+xy <- cbind(x,y)
+S <- SpatialPoints(xy)
+#convert from points to spatial point data frame
+xy2 = as.data.frame(cbind(x,y))
+spdf <- SpatialPointsDataFrame(S, xy2)
+(Sr1 = Polygon(spdf))
+(Srs1 = Polygons(list(Sr1), "s1"))
+(SpP = SpatialPolygons(list(Srs1), 1:1))
+#plot(SpP, col = 3:3, pbg="white", add=T)
+SpP ### can not write as shapefile
+### Convert the SpatialPolygons to SpatialPolygonsDataFrame
+shape_pol <- SpatialPolygonsDataFrame(SpP, match.ID=F, data= data.frame(x=spdf, y=spdf))
+shape_pol ### can be writen as shapefile
+#plot(shape_pol, col = 4, add=T)
+#make mask and discard remaining data
+mask =mask(elevation_fullcrop,shape_pol)
+mask =trim(mask, values = NA)
+extent(mask)
+plot(mask)
+#merge base with crop
+elevation <- merge(mask, base_raster)
+plot(elevation)
+extent(elevation)
+res(elevation)
+#raster to matrix for RGB
+iow_1965_matrix_r = rayshader::raster_to_matrix(iow_1965r)
+iow_1965_matrix_g = rayshader::raster_to_matrix(iow_1965g)
+iow_1965_matrix_b = rayshader::raster_to_matrix(iow_1965b)
+#build array fro matrix
+iow_rgb_array = array(0,dim=c(nrow(iow_1965_matrix_r),ncol(iow_1965_matrix_r),3))
+#convert each layer
+iow_rgb_array = iow_1965_matrix_r/255 #Red layer
+iow_rgb_array = iow_1965_matrix_g/255 #Blue layer
+iow_rgb_array = iow_1965_matrix_b/255 #Green layer
+#transpose array
+iow_rgb_array = aperm(iow_rgb_array, c(2,1,3))
+#elevation data to matrix
+iow_elevation_matrix = rayshader::raster_to_matrix(elevation)
+#resize to speed up render
+elev_mat = resize_matrix(iow_elevation_matrix,0.5)
+#rayshade
+ray_shadow      <- ray_shade(elev_mat, sunaltitude = 40, zscale = 1, multicore = TRUE)
+ambient_shadow  <- ambient_shade(elev_mat, zscale = 1, multicore = TRUE)
+lamb_shadow     <- lamb_shade(elev_mat, zscale=50, sunaltitude = 40)
+elev_mat %>%
+  sphere_shade() %>%
+  add_overlay(iow_rgb_array, rescale_original=TRUE) %>%
+  add_shadow(ray_shadow, max_darken = 0.3) %>%
+  add_shadow(ambient_shadow, max_darken = 0.3) %>%
+  add_shadow(lamb_shadow, max_darken = 0.4) %>%
+  #save_png("IOW1965_map.png")
+  plot_map()
+```
 
 ![](/assets/img/wp-uploads/2022/11/IOW1965A1aspect.jpg)The Isle of Wight - Rayshaded

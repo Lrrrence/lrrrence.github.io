@@ -41,7 +41,9 @@ As we are working in the frequency domain the excitation needs to be applied acc
 For a time dependant study you can generate a Hamming windowed pulse in COMSOL using the following analytic expression:
     
     
-    (sin(2*pi*f_0*t)*(t<(np/f_0)))*(0.54 - 0.46*(cos(2*pi*(t/(T0*np)))))
+```matlab
+(sin(2*pi*f_0*t)*(t<(np/f_0)))*(0.54 - 0.46*(cos(2*pi*(t/(T0*np)))))
+```
 
 Where `f_0` is the frequency of excitation, `np` is the number of cycles, and `T0` is equal to `1/f_0`. These are all defined under global definitions. The argument is `t` and the function is `N`.
 
@@ -50,72 +52,74 @@ Where `f_0` is the frequency of excitation, `np` is the number of cycles, and `T
 To generate this same pulse in MATLAB and carry out an FFT you can use the following code:
     
     
-    clear all
-    
-    f_0=0.5e6; %frequency
-    np=5; %num cycles
-    fs = 1e8; %sample rate
-    T0=1/f_0;
-    T5 = 0:1/fs:5*T0;
-    
-    % generate 5 cycle pulse
-    pulse = sin(2*pi*f_0*T5).*(T5<(np/f_0));
-    
-    % generate hamming window
-    window = hamming(length(T5),'symmetric')';
-    
-    %multiply together
-    ham_pulse = pulse.*window;
-    
-    %pad array for FFT
-    padsize = 5000;
-    ham_pulse_pad = padarray(ham_pulse,, 0,'post'); % zero pad
-    
-    % Perform FFT
-    N = length(ham_pulse_pad);
-    Y = fft(ham_pulse_pad);
-    P2 = abs(Y / N);
-    P1 = P2(1:N/2+1);
-    P1(2:end-1) = 2*P1(2:end-1);
-    
-    % Define the frequency axis
-    f = fs*(0:(N/2))/N;
-    
-    P1 = normalize(P1,"range");
-    
-    % generate txt file for COMSOL
-    fft_array = transpose();
-    writematrix(fft_array ,'fft_pulse.txt','Delimiter','tab')
-    
-    %% plot
-    figure
-    tiledlayout(1, 2);
-    nexttile
-    set(gca, 'LineWidth', 1.2); % For grid lines
-    hold on
-    grid on 
-    box on
-    set(gca, 'fontsize', 16);
-    plot(T5,ham_pulse, 'LineWidth', 3)
-    ylabel('Amplitude (N)')
-    xlabel('Time (μs)')
-    
-    nexttile
-    set(gca, 'LineWidth', 1.2); % For grid lines
-    hold on
-    grid on 
-    box on
-    set(gca, 'fontsize', 16);
-    plot(f, P1, 'LineWidth', 3);
-    xlim()
-    ylabel('Amplitude')
-    xlabel('Frequency (Hz)')
-    
-    x0=10;
-    y0=10;
-    width=2000;
-    height=1000;
-    set(gcf,'position',)
+```matlab
+clear all
+
+f_0=0.5e6; %frequency
+np=5; %num cycles
+fs = 1e8; %sample rate
+T0=1/f_0;
+T5 = 0:1/fs:5*T0;
+
+% generate 5 cycle pulse
+pulse = sin(2*pi*f_0*T5).*(T5<(np/f_0));
+
+% generate hamming window
+window = hamming(length(T5),'symmetric')';
+
+%multiply together
+ham_pulse = pulse.*window;
+
+%pad array for FFT
+padsize = 5000;
+ham_pulse_pad = padarray(ham_pulse,, 0,'post'); % zero pad
+
+% Perform FFT
+N = length(ham_pulse_pad);
+Y = fft(ham_pulse_pad);
+P2 = abs(Y / N);
+P1 = P2(1:N/2+1);
+P1(2:end-1) = 2*P1(2:end-1);
+
+% Define the frequency axis
+f = fs*(0:(N/2))/N;
+
+P1 = normalize(P1,"range");
+
+% generate txt file for COMSOL
+fft_array = transpose();
+writematrix(fft_array ,'fft_pulse.txt','Delimiter','tab')
+
+%% plot
+figure
+tiledlayout(1, 2);
+nexttile
+set(gca, 'LineWidth', 1.2); % For grid lines
+hold on
+grid on 
+box on
+set(gca, 'fontsize', 16);
+plot(T5,ham_pulse, 'LineWidth', 3)
+ylabel('Amplitude (N)')
+xlabel('Time (μs)')
+
+nexttile
+set(gca, 'LineWidth', 1.2); % For grid lines
+hold on
+grid on 
+box on
+set(gca, 'fontsize', 16);
+plot(f, P1, 'LineWidth', 3);
+xlim()
+ylabel('Amplitude')
+xlabel('Frequency (Hz)')
+
+x0=10;
+y0=10;
+width=2000;
+height=1000;
+set(gcf,'position',)
+```
 
 ![](/assets/img/wp-uploads/2023/08/matlab-1.png)
 

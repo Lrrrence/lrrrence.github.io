@@ -11,8 +11,10 @@ Download example scripts and data files [here](<https://drive.google.com/open?id
 Read in the example csv file using: 
     
     
-    myFile <- file.choose()
-    mydata  <- read.table(myFile,header=TRUE)
+```r
+myFile <- file.choose()
+mydata  <- read.table(myFile,header=TRUE)
+```
 
 Now we can create a 'scatterpolar' plot and add each trace to it. This example contains patterns for:
 
@@ -25,7 +27,9 @@ Now we can create a 'scatterpolar' plot and add each trace to it. This example c
 Under line use:
     
     
-     shape = "spline",
+```r
+shape = "spline",
+```
 
 To smooth each trace. Under layout > polar you will need to edit parameters under radialaxis and angularaxis to change the number of ticks, their colour, thickness, and orientation. To change the axis scale use range under radialaxis. ![polaridealised.png](/assets/img/wp-uploads/2018/08/polaridealised.png)
 
