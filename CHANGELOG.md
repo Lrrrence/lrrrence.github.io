@@ -7,6 +7,26 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.2.0](https://github.com/Lrrrence/lrrrence.github.io/compare/v1.1.0...v1.2.0) (2026-05-15)
+
+
+### Features
+
+* add Google Scholar publications ([6b5feea](https://github.com/Lrrrence/lrrrence.github.io/commit/6b5feeadcf1ec2273b776308db5b46ca0f430c15))
+* migrate WordPress blog posts with images ([03b77c4](https://github.com/Lrrrence/lrrrence.github.io/commit/03b77c489f4af9c27c3180db2978fc7a245b076a))
+
+
+### Bug Fixes
+
+* convert WordPress indented code blocks to fenced blocks with language tags ([1ebee20](https://github.com/Lrrrence/lrrrence.github.io/commit/1ebee20306322a6f0ef246a81719967101ed1e9b))
+
+
+### Miscellaneous
+
+* compress 80MB PNG to 15MB JPEG ([d4e513d](https://github.com/Lrrrence/lrrrence.github.io/commit/d4e513d833321b9ce5caca4b60ee5330aa35f360))
+* remove WordPress export file ([2495391](https://github.com/Lrrrence/lrrrence.github.io/commit/24953916604cdb5355ae9b92962440a13c5cd1b7))
+* upgrade Astro to 6.3.3 ([c3dfb0e](https://github.com/Lrrrence/lrrrence.github.io/commit/c3dfb0e92a0552dbea384d3f4fa59779f2a05b0d))
+
 ## [1.1.0](https://github.com/dadangnh/as-folio/compare/v1.0.0...v1.1.0) (2026-05-04)
 
 
