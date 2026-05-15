@@ -41,9 +41,6 @@
     "MIGRATE.md",
     "LICENSE"
   ],
-  "peerDependencies": {
-    "astro": ">=6.0.0"
-  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -67,11 +64,11 @@
     "citations:update": "node --strip-types scripts/update-citations.ts"
   },
   "dependencies": {
-    "@astrojs/mdx": "^5.0.2",
-    "@astrojs/partytown": "^2.1.5",
-    "@astrojs/react": "^5.0.1",
-    "@astrojs/rss": "^4.0.17",
-    "@astrojs/sitemap": "^3.7.1",
+    "@astrojs/mdx": "^5.0.6",
+    "@astrojs/partytown": "^2.1.7",
+    "@astrojs/react": "^5.0.5",
+    "@astrojs/rss": "^4.0.18",
+    "@astrojs/sitemap": "^3.7.2",
     "@fontsource/roboto": "^5.2.10",
     "@fontsource/roboto-condensed": "^5.2.8",
     "@fontsource/source-code-pro": "^5.2.7",
@@ -80,7 +77,7 @@
     "@iconify-json/fa-regular": "^1.2.1",
     "@iconify-json/fa-solid": "^1.2.2",
     "@resvg/resvg-js": "^2.6.2",
-    "astro": "6.0.8",
+    "astro": "^6.3.3",
     "astro-icon": "^1.1.4",
     "js-yaml": "^4.1.0",
     "medium-zoom": "^1.1.0",
@@ -95,7 +92,7 @@
     "sharp": "^0.34.2"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.8",
+    "@astrojs/check": "^0.9.9",
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@eslint/js": "^9",
