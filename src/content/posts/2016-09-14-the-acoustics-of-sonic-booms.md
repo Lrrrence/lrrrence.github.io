@@ -1,0 +1,54 @@
+---
+title: 'The Acoustics of Sonic Booms'
+date: 2016-09-14
+lastmod: 2022-08-28
+tags: ['Acoustics', 'Audio', 'nasa', 'noise', 'Schlieren', 'shock wave', 'sonic boom', 'sound', 'sr71']
+categories: ['Solent Acoustics']
+---
+Sonic booms are something that most people will have heard at some point in their lives, perhaps from planes passing by at an airshow, or from a bull whip (yes, the tip travels faster than the speed of sound!), but what exactly are they? and how do they produce such an incredible noise? This posts explores the acoustics of sonic booms.
+
+A sonic boom is heard as an incredibly loud burst of noise and subsequent rumble, which occurs when any object is moving faster than the local speed of sound, most commonly jet aircraft. They have the power to break the windows of cars and buildings if the boom is in close proximity to them ([seen here in Brazil](<https://www.youtube.com/watch?v=43Kl7c2yU3g>)), and can be felt inside your chest due to their low frequency power. The next section investigates the theory behind them:
+
+## Theory
+
+![A-01.png](/assets/img/wp-uploads/2016/09/a-01.png)
+
+For a stationary point source (a) each wave front that radially propagates away from an object is equally spaced from the last, travelling at the local speed of sound. If the velocity of the object is increased to be half the speed of sound (mach=1/2) (b) then the wave fronts become compressed in the direction of travel, and expanded in the opposite direction. This can be heard as a **[doppler shift](<https://www.youtube.com/watch?v=h4OnBYrbCjY>)** , where the sound in front of an object increases in frequency, while sound behind reduces in frequency.
+
+![B-01.png](/assets/img/wp-uploads/2016/09/b-01.png)
+
+As the velocity of an object reaches the speed of sound (c) a shock front is created, whereby the wave fronts propagating in the direction of travel are compressed into the same space as each other, causing a rapid change in air pressure, and heard as a sonic boom. This point is called the **mach line,** or more commonly referred to as the sound barrier**.**
+
+![C-01.png](/assets/img/wp-uploads/2016/09/c-01.png)If an object exceeds the speed of sound (d) then the mach line forms a cone, the angle of which can be calculated using the equation: ![mach-equation](/assets/img/wp-uploads/2016/09/mach-equation.png)
+
+![D-01.png](/assets/img/wp-uploads/2016/09/d-01.png)Outside of the mach cone no sound will be able to propagate from the object, so an incoming object will be silent until it passes overhead. Within the cone the air pressure will continue to fluctuate wildly until the velocity of the object is reduced to below the speed of sound (mach 1.0). For a stationary person on the ground the sonic boom is only heard for a short period of time, as the object is moving away from the listener very quickly, but the "boom" is actually a continuous noise that is transmitted to the ground from the mach cone along a path known as the "boom ray". The boom can be heard in an area around 1 mile wide (on either side of the object) for every 1000 feet of altitude, depending on atmospheric conditions.
+
+### Boom Analysis
+
+When analysing a sonic boom that has been transmitted to the ground and measured by a microphone the first received waveform has a specific shape, referred to as an N-wave. The shape is caused by air interacting with the structure of plane, producing high pressure at the leading edge (the front of a wing, for example) which reduces linearly to a low pressure at the trailing edge where there is a sharp increase in pressure back to equilibrium. Two booms are created by the rapid pressure changes, but it is typically heard as one on the ground (as they happen so close together). The N-wave typically lasts around 300ms, shorter for small jet planes and longer for things like the space shuttle.
+
+![figure-11-the-n-wave-sonic-boom-nak-08](/assets/img/wp-uploads/2016/09/figure-11-the-n-wave-sonic-boom-nak-08.png) Griffiths, G. 2009. 
+
+The power of a sonic boom is measured in peak overpressure, which is a measure of how much the boom increases air pressure above the atmospheric conditions. This is generally in the region of 50-100Pa, and causes peak sound pressure levels (unweighted) of around 130dB on the ground. Most of the energy within sonic booms is in the frequency range of <100Hz, which is why they are able to be heard from great distances (a plane at 30,000 feet for example). Larger, heavier aircraft such as the now retired space shuttle create much larger overpressures than smaller, lighter aircraft such as military jets, and their 2 booms can be heard separately.
+
+![2016-09-14_15-39-12.png](/assets/img/wp-uploads/2016/09/2016-09-14_15-39-12.png) Sonic boom N-wave recorded from the space shuttle Atlantis, 1988. Overpressure of 57Pa. Unweighted SPL 129dB. (Young, 2001). 
+
+At speeds just above Mach 1 the wind conditions, air temp and air pressure can have a significant influence on the shock waves generated by the object, and therefore the energy and propagation of a sonic boom. At speeds greater than Mach 1.3 these atmospheric conditions have less of an effect, and the power of booms becomes very similar.
+
+### Examples
+
+NASA has recorded the sonic booms of many aircraft, notably the SR71 Blackbird, which can be heard [here](<http://www.nasa.gov/centers/dryden/history/pastprojects/SR71/SRBooms/#.V9avDvkrKUk>).
+
+Check out a recording of an Australian RAAF Sabre jet breaking the sound barrier, all the way from 1953, [here](<http://aviationspottersonline.com/boom-first-raaf-sabre-recording-sonic-boom/>).
+
+In some [videos of sonic booms](<https://www.youtube.com/watch?v=6B4IVcCuIZE>) created by aircraft you can see a white ring build up around the plane (see header image), this actually has nothing to do with the sonic boom itself and can occur at subsonic speeds. The air pressure at the surface of the plane is very low because of high air velocity flowing around it, which also lowers the local air temperature. This causes the relative humidity to drop, which can cause a ring of condensation to form.
+
+Red Bull believe they caught the moment that Felix Baumgartner broke the sound barrier and created a sonic boom during his record breaking freefall from the edge of space in [this video](<http://www.redbull.com/uk/en/stories/1331579033958/felix-baumgartner-s-sonic-boom-captured-video>).
+
+Schlieren photographs allow us to see what a mach cone looks like, take a look at the images below (courtesy of NASA) as well as these links ([Link 1](<http://www.nasa.gov/centers/armstrong/features/shock_and_awesome.html>), [Link 2](<http://www.nasa.gov/feature/ground-based-schlieren-technique-looks-to-the-sun-and-moon>)) for more information on how the photos are taken.
+
+![airbos_f7_p5](/assets/img/wp-uploads/2016/09/airbos_f7_p5.jpg)![airbos_f7_p6](/assets/img/wp-uploads/2016/09/airbos_f7_p6.jpg)
+
+### References
+
+Bruel & Kjaer, 1979. Acoustic Noise Measurements. p.216-227. Griffiths, G. 2009. Linear and nonlinear waves. City University, UK. Lehigh University, USA.  [NASA Boom Recordings (SR71)](<http://www.nasa.gov/centers/dryden/history/pastprojects/SR71/SRBooms/#.V9avDvkrKUk>) [NASA sonic boom fact sheet](<http://www.nasa.gov/centers/armstrong/news/FactSheets/FS-016-DFRC.html>) Young, 2001. Sonic booms of space shuttles approaching Edwards Air Force Base, 1988–1993. JASA Vol. 111.

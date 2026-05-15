@@ -1,0 +1,12 @@
+---
+title: 'Acousto-Optic Scanning: Seeing Sound'
+date: 2014-01-31
+lastmod: 2022-08-28
+tags: ['Acoustics', 'Laser', 'LDV', 'National Physical Laboratory', 'NPL', 'sound']
+categories: ['Solent Acoustics']
+---
+Being able to visually interpret sound would be an extremely useful function, one that could aid people in the understanding of wave propagation and how those waves interact with each other. As well as this, visualising sound could aid loudspeaker design as manufacturers are able to more accurately study the interference patterns that determine the directivity and frequency response of their products. Researchers at the National Physical Laboratory seem to have done just that, using a scanning laser Doppler vibrometer that can measure the minute changes in optical phase as the laser passes through an acoustic field. Dubbed the acousto-optic effect, the minute optical phase variations can be measured by positioning a scanning laser Doppler vibrometer to the side of a loudspeaker, aimed at a retro-reflective mirror. The vibrometer then scans an area on the mirror with its laser, passing through the sound waves created by the loudspeaker. An image can then be produced from the spatially distributed phase shift data that is received by the vibrometer. This technology is most likely to be used by high-end loudspeaker manufacturers looking to investigate the interference patterns of their speakers, to try and eliminate dead spots caused by de-constructive interference. The project lead at the National Physical Laboratory, Ian Butterworth, said in a 2011 press release: 
+
+> "This is a significant breakthrough for loudspeaker manufacturers. By having actual data to rely on, they will be able to better understand how different designs impact the loudspeaker's directionality, and design out the dead spots which could limit the quality of the loudspeaker." "The main applications are likely to be for high-end in-home loudspeaker manufacturers who want their products to deliver the perfect surround sound experience, and outdoor loudspeaker manufacturers who want to eliminate the noticeable spatial changes in levels experienced at music festivals and other live events." "We're now looking to conduct further studies, scanning larger areas with higher definition, to get a better picture of how sound is propagating away from these loudspeakers."
+
+Watch the video below (provided by NPL) for more information. https://www.youtube.com/watch?v=VRq1vc00R7s
